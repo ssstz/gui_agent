@@ -1,0 +1,42 @@
+{
+  "action": "drag",
+  "screen_size": [
+    2560,
+    1600
+  ],
+  "mouse_before": [
+    1511,
+    1162
+  ],
+  "mouse_after": [
+    1000,
+    1000
+  ],
+  "before_screenshot": "artifacts\\control_results\\20260529_210556_drag_before.png",
+  "after_screenshot": "artifacts\\control_results\\20260529_210556_drag_after.png",
+  "before_image_size": [
+    2560,
+    1600
+  ],
+  "after_image_size": [
+    2560,
+    1600
+  ],
+  "delay": 5.0,
+  "after_delay": 1.0,
+  "result": {
+    "action": "drag",
+    "ok": true,
+    "detail": "drag (700, 700) -> (1000, 1000)"
+  },
+  "params": {
+    "start": [
+      700,
+      700
+    ],
+    "end": [
+      1000,
+      1000
+    ]
+  }
+}

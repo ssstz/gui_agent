@@ -1,0 +1,35 @@
+{
+  "action": "scroll",
+  "screen_size": [
+    2560,
+    1600
+  ],
+  "mouse_before": [
+    1520,
+    1229
+  ],
+  "mouse_after": [
+    1520,
+    1229
+  ],
+  "before_screenshot": "artifacts\\control_results\\20260529_210347_scroll_before.png",
+  "after_screenshot": "artifacts\\control_results\\20260529_210347_scroll_after.png",
+  "before_image_size": [
+    2560,
+    1600
+  ],
+  "after_image_size": [
+    2560,
+    1600
+  ],
+  "delay": 5.0,
+  "after_delay": 1.0,
+  "result": {
+    "action": "scroll",
+    "ok": true,
+    "detail": "scroll amount -500"
+  },
+  "params": {
+    "amount": -500
+  }
+}

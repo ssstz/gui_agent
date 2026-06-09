@@ -1,0 +1,22 @@
+{
+  "keyword": "Cheat Sheet",
+  "found": {
+    "element_id": "ocr_26",
+    "text": "Cheat Sheet",
+    "bbox": [
+      46,
+      588,
+      138,
+      24
+    ],
+    "center": [
+      115,
+      600
+    ],
+    "confidence": 0.9827995300292969,
+    "element_type": "text",
+    "source": "ocr"
+  },
+  "element_count": 51,
+  "screenshot": "artifacts\\find_text_results\\20260529_205031_screen.png"
+}

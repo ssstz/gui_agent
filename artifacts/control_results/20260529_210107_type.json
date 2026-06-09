@@ -1,0 +1,35 @@
+{
+  "action": "type",
+  "screen_size": [
+    2560,
+    1600
+  ],
+  "mouse_before": [
+    1507,
+    893
+  ],
+  "mouse_after": [
+    1507,
+    893
+  ],
+  "before_screenshot": "artifacts\\control_results\\20260529_210107_type_before.png",
+  "after_screenshot": "artifacts\\control_results\\20260529_210107_type_after.png",
+  "before_image_size": [
+    2560,
+    1600
+  ],
+  "after_image_size": [
+    2560,
+    1600
+  ],
+  "delay": 5.0,
+  "after_delay": 1.0,
+  "result": {
+    "action": "type",
+    "ok": true,
+    "detail": "typed 5 chars"
+  },
+  "params": {
+    "text": "hello"
+  }
+}

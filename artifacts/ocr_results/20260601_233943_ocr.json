@@ -1,0 +1,629 @@
+{
+  "annotated": "artifacts\\ocr_results\\20260601_233943_annotated.png",
+  "element_count": 32,
+  "expected_terms": [
+    "中文 OCR 混合文本测试页面",
+    "登录",
+    "确认",
+    "搜索",
+    "设置",
+    "提交订单",
+    "Cheat Sheet",
+    "Settings",
+    "Submit",
+    "Cancel",
+    "123456",
+    "2026年1月1日",
+    "Version 1.0",
+    "订单号",
+    "Order-20260101",
+    "用户ID",
+    "user123",
+    "Amount 88.50",
+    "已完成"
+  ],
+  "expected_terms_count": 19,
+  "matched_terms": [
+    "中文 OCR 混合文本测试页面",
+    "登录",
+    "确认",
+    "搜索",
+    "设置",
+    "提交订单",
+    "Cheat Sheet",
+    "Settings",
+    "Submit",
+    "Cancel",
+    "123456",
+    "2026年1月1日",
+    "Version 1.0",
+    "订单号",
+    "Order-20260101",
+    "用户ID",
+    "user123",
+    "Amount 88.50",
+    "已完成"
+  ],
+  "match_count": 19,
+  "match_rate": 1.0,
+  "recognized_texts": [
+    "Chinese OCR Test Page",
+    "×",
+    "+",
+    "可",
+    "×",
+    "File",
+    "D:/study/gui_agent_week1/manual_tests/test_pages/chinese_ocr_test.html",
+    "Q",
+    "A",
+    "Update …",
+    "Chat",
+    "中文OCR混合文本测试页面",
+    "中文按钮文本",
+    "登录",
+    "确认",
+    "搜索",
+    "设置",
+    "提交订单",
+    "English UI Text",
+    "Cheat Sheet",
+    "Settings",
+    "Submit",
+    "Cancel",
+    "数字与日期",
+    "123456",
+    "2026年1月1日",
+    "Version 1.0",
+    "中英数字混合",
+    "订单号Order-20260101",
+    "用户ID user123",
+    "金额Amount 88.50元",
+    "状态 Status: 已完成"
+  ],
+  "elements": [
+    {
+      "element_id": "ocr_0",
+      "text": "Chinese OCR Test Page",
+      "bbox": [
+        123,
+        22,
+        216,
+        27
+      ],
+      "center": [
+        231,
+        35
+      ],
+      "confidence": 0.9913471937179565,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_1",
+      "text": "×",
+      "bbox": [
+        448,
+        21,
+        27,
+        27
+      ],
+      "center": [
+        461,
+        34
+      ],
+      "confidence": 0.9038630127906799,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_2",
+      "text": "+",
+      "bbox": [
+        508,
+        17,
+        33,
+        35
+      ],
+      "center": [
+        524,
+        34
+      ],
+      "confidence": 0.7652105689048767,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_3",
+      "text": "可",
+      "bbox": [
+        2425,
+        21,
+        28,
+        26
+      ],
+      "center": [
+        2439,
+        34
+      ],
+      "confidence": 0.2120727300643921,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_4",
+      "text": "×",
+      "bbox": [
+        2505,
+        20,
+        29,
+        28
+      ],
+      "center": [
+        2519,
+        34
+      ],
+      "confidence": 0.7212387919425964,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_5",
+      "text": "File",
+      "bbox": [
+        246,
+        91,
+        40,
+        24
+      ],
+      "center": [
+        266,
+        103
+      ],
+      "confidence": 0.9987818002700806,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_6",
+      "text": "D:/study/gui_agent_week1/manual_tests/test_pages/chinese_ocr_test.html",
+      "bbox": [
+        292,
+        90,
+        807,
+        30
+      ],
+      "center": [
+        695,
+        105
+      ],
+      "confidence": 0.995166540145874,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_7",
+      "text": "Q",
+      "bbox": [
+        1925,
+        90,
+        33,
+        26
+      ],
+      "center": [
+        1941,
+        103
+      ],
+      "confidence": 0.2681771218776703,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_8",
+      "text": "A",
+      "bbox": [
+        2037,
+        88,
+        32,
+        32
+      ],
+      "center": [
+        2053,
+        104
+      ],
+      "confidence": 0.6127281188964844,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_9",
+      "text": "Update …",
+      "bbox": [
+        2296,
+        86,
+        113,
+        35
+      ],
+      "center": [
+        2352,
+        103
+      ],
+      "confidence": 0.9266016483306885,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_10",
+      "text": "Chat",
+      "bbox": [
+        2487,
+        87,
+        54,
+        32
+      ],
+      "center": [
+        2514,
+        103
+      ],
+      "confidence": 0.99953293800354,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_11",
+      "text": "中文OCR混合文本测试页面",
+      "bbox": [
+        539,
+        266,
+        649,
+        60
+      ],
+      "center": [
+        863,
+        296
+      ],
+      "confidence": 0.9951101541519165,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_12",
+      "text": "中文按钮文本",
+      "bbox": [
+        540,
+        399,
+        214,
+        45
+      ],
+      "center": [
+        647,
+        421
+      ],
+      "confidence": 0.9988908171653748,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_13",
+      "text": "登录",
+      "bbox": [
+        536,
+        501,
+        100,
+        54
+      ],
+      "center": [
+        586,
+        528
+      ],
+      "confidence": 0.9994248747825623,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_14",
+      "text": "确认",
+      "bbox": [
+        668,
+        500,
+        102,
+        57
+      ],
+      "center": [
+        719,
+        528
+      ],
+      "confidence": 0.9991427659988403,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_15",
+      "text": "搜索",
+      "bbox": [
+        800,
+        502,
+        101,
+        53
+      ],
+      "center": [
+        850,
+        528
+      ],
+      "confidence": 0.99946528673172,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_16",
+      "text": "设置",
+      "bbox": [
+        932,
+        502,
+        101,
+        52
+      ],
+      "center": [
+        982,
+        528
+      ],
+      "confidence": 0.9986934661865234,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_17",
+      "text": "提交订单",
+      "bbox": [
+        1066,
+        502,
+        187,
+        53
+      ],
+      "center": [
+        1159,
+        528
+      ],
+      "confidence": 0.9980607032775879,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_18",
+      "text": "English UI Text",
+      "bbox": [
+        541,
+        648,
+        264,
+        41
+      ],
+      "center": [
+        673,
+        668
+      ],
+      "confidence": 0.9686933159828186,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_19",
+      "text": "Cheat Sheet",
+      "bbox": [
+        540,
+        750,
+        275,
+        48
+      ],
+      "center": [
+        677,
+        774
+      ],
+      "confidence": 0.9946516156196594,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_20",
+      "text": "Settings",
+      "bbox": [
+        844,
+        749,
+        194,
+        53
+      ],
+      "center": [
+        941,
+        775
+      ],
+      "confidence": 0.9985365867614746,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_21",
+      "text": "Submit",
+      "bbox": [
+        1073,
+        750,
+        169,
+        46
+      ],
+      "center": [
+        1157,
+        773
+      ],
+      "confidence": 0.9994407296180725,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_22",
+      "text": "Cancel",
+      "bbox": [
+        1274,
+        748,
+        154,
+        49
+      ],
+      "center": [
+        1351,
+        772
+      ],
+      "confidence": 0.9983837604522705,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_23",
+      "text": "数字与日期",
+      "bbox": [
+        539,
+        893,
+        179,
+        42
+      ],
+      "center": [
+        628,
+        914
+      ],
+      "confidence": 0.999707043170929,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_24",
+      "text": "123456",
+      "bbox": [
+        541,
+        996,
+        169,
+        46
+      ],
+      "center": [
+        625,
+        1019
+      ],
+      "confidence": 0.9997789859771729,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_25",
+      "text": "2026年1月1日",
+      "bbox": [
+        745,
+        993,
+        301,
+        52
+      ],
+      "center": [
+        895,
+        1019
+      ],
+      "confidence": 0.999771237373352,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_26",
+      "text": "Version 1.0",
+      "bbox": [
+        1085,
+        995,
+        254,
+        48
+      ],
+      "center": [
+        1212,
+        1019
+      ],
+      "confidence": 0.9864850640296936,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_27",
+      "text": "中英数字混合",
+      "bbox": [
+        539,
+        1137,
+        214,
+        45
+      ],
+      "center": [
+        646,
+        1159
+      ],
+      "confidence": 0.999662458896637,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_28",
+      "text": "订单号Order-20260101",
+      "bbox": [
+        539,
+        1242,
+        352,
+        37
+      ],
+      "center": [
+        715,
+        1260
+      ],
+      "confidence": 0.9992616176605225,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_29",
+      "text": "用户ID user123",
+      "bbox": [
+        1286,
+        1239,
+        231,
+        41
+      ],
+      "center": [
+        1401,
+        1259
+      ],
+      "confidence": 0.9625092148780823,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_30",
+      "text": "金额Amount 88.50元",
+      "bbox": [
+        540,
+        1386,
+        330,
+        37
+      ],
+      "center": [
+        705,
+        1404
+      ],
+      "confidence": 0.9843884110450745,
+      "element_type": "text",
+      "source": "ocr"
+    },
+    {
+      "element_id": "ocr_31",
+      "text": "状态 Status: 已完成",
+      "bbox": [
+        1287,
+        1387,
+        281,
+        38
+      ],
+      "center": [
+        1427,
+        1406
+      ],
+      "confidence": 0.9812504053115845,
+      "element_type": "text",
+      "source": "ocr"
+    }
+  ]
+}

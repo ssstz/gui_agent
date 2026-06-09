@@ -1,0 +1,23 @@
+{
+  "monitor_count": 1,
+  "monitors": [
+    {
+      "index": 0,
+      "left": 0,
+      "top": 0,
+      "width": 2560,
+      "height": 1600,
+      "is_primary": true
+    }
+  ],
+  "dpi_awareness": "enabled",
+  "monitor_index": 0,
+  "local_point": [
+    10,
+    20
+  ],
+  "global_point": [
+    10,
+    20
+  ]
+}

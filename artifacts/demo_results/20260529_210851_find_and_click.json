@@ -1,0 +1,31 @@
+{
+  "keyword": "Cheat Sheet",
+  "clicked": true,
+  "found": {
+    "element_id": "ocr_25",
+    "text": "Cheat Sheet",
+    "bbox": [
+      46,
+      588,
+      138,
+      24
+    ],
+    "center": [
+      115,
+      600
+    ],
+    "confidence": 0.9827995300292969,
+    "element_type": "text",
+    "source": "ocr"
+  },
+  "element_count": 50,
+  "screenshot": "artifacts\\demo_results\\20260529_210851_screen.png",
+  "annotated": "artifacts\\demo_results\\20260529_210851_ocr_annotated.png",
+  "action": {
+    "action": "click",
+    "ok": true,
+    "detail": "left click at (115, 600)"
+  },
+  "after_screenshot": "artifacts\\demo_results\\20260529_210851_screen_after.png",
+  "after_delay": 1.0
+}

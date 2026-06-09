@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>Chinese OCR Test Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+      background: #f6f8fb;
+      color: #1f2937;
+    }
+
+    main {
+      width: 920px;
+      margin: 48px auto;
+      background: #ffffff;
+      border: 1px solid #d7dde7;
+      border-radius: 8px;
+      padding: 32px 40px;
+    }
+
+    h1 {
+      margin: 0 0 24px;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.8;
+    }
+
+    .large {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 28px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>中文 OCR 混合文本测试页面</h1>
+
+    <section>
+      <h2>中文按钮文本</h2>
+      <p class="large">登录　确认　搜索　设置　提交订单</p>
+    </section>
+
+    <section>
+      <h2>English UI Text</h2>
+      <p class="large">Cheat Sheet　Settings　Submit　Cancel</p>
+      <p class="large">User Settings　Settings Profile</p>
+    </section>
+
+    <section>
+      <h2>数字与日期</h2>
+      <p class="large">123456　2026年1月1日　Version 1.0</p>
+    </section>
+
+    <section>
+      <h2>中英数字混合</h2>
+      <div class="grid">
+        <p>订单号 Order-20260101</p>
+        <p>用户ID user123</p>
+        <p>金额 Amount 88.50 元</p>
+        <p>状态 Status: 已完成</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

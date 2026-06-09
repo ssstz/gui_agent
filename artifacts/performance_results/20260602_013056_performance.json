@@ -1,0 +1,345 @@
+{
+  "keyword": "package",
+  "runs_count": 10,
+  "lang": "ch",
+  "use_gpu": true,
+  "click_enabled": true,
+  "monitor_index": null,
+  "model_load_seconds": 10.409848799929023,
+  "averages": {
+    "capture_seconds": 0.05088818999938667,
+    "ocr_seconds": 1.4012783700134606,
+    "find_seconds": 6.616997998207808e-05,
+    "click_seconds": 0.10295606008730829,
+    "total_seconds": 1.5551975099602715,
+    "element_count": 88
+  },
+  "bottleneck": "ocr_seconds",
+  "match_options": {
+    "min_confidence": 0.5,
+    "fuzzy_threshold": null,
+    "regex": false
+  },
+  "runs": [
+    {
+      "run": 1,
+      "capture_seconds": 0.06109550013206899,
+      "ocr_seconds": 2.3255537000950426,
+      "find_seconds": 6.54999166727066e-05,
+      "click_seconds": 0.10402630013413727,
+      "total_seconds": 2.490749299991876,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 2,
+      "capture_seconds": 0.05008519999682903,
+      "ocr_seconds": 1.3029737998731434,
+      "find_seconds": 6.019999273121357e-05,
+      "click_seconds": 0.10298079997301102,
+      "total_seconds": 1.4561095999088138,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 3,
+      "capture_seconds": 0.04934609984047711,
+      "ocr_seconds": 1.297725799959153,
+      "find_seconds": 5.9099867939949036e-05,
+      "click_seconds": 0.10259570018388331,
+      "total_seconds": 1.449736600043252,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 4,
+      "capture_seconds": 0.05647289985790849,
+      "ocr_seconds": 1.3063040000852197,
+      "find_seconds": 5.8399979025125504e-05,
+      "click_seconds": 0.10305300005711615,
+      "total_seconds": 1.4658970998134464,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 5,
+      "capture_seconds": 0.04941369988955557,
+      "ocr_seconds": 1.303277299972251,
+      "find_seconds": 6.21001236140728e-05,
+      "click_seconds": 0.10287580010481179,
+      "total_seconds": 1.4556378999259323,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 6,
+      "capture_seconds": 0.04719780012965202,
+      "ocr_seconds": 1.2933040000498295,
+      "find_seconds": 9.449990466237068e-05,
+      "click_seconds": 0.1023280001245439,
+      "total_seconds": 1.4429341999348253,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 7,
+      "capture_seconds": 0.05014949990436435,
+      "ocr_seconds": 1.280970900086686,
+      "find_seconds": 7.479987107217312e-05,
+      "click_seconds": 0.10342970001511276,
+      "total_seconds": 1.4346336000598967,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 8,
+      "capture_seconds": 0.04812530009075999,
+      "ocr_seconds": 1.2732299000490457,
+      "find_seconds": 6.21001236140728e-05,
+      "click_seconds": 0.10236510005779564,
+      "total_seconds": 1.423790300032124,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 9,
+      "capture_seconds": 0.047906900057569146,
+      "ocr_seconds": 1.2985531999729574,
+      "find_seconds": 6.38000201433897e-05,
+      "click_seconds": 0.10350930015556514,
+      "total_seconds": 1.4500414000358433,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    },
+    {
+      "run": 10,
+      "capture_seconds": 0.04908900009468198,
+      "ocr_seconds": 1.3308910999912769,
+      "find_seconds": 6.120000034570694e-05,
+      "click_seconds": 0.10239690006710589,
+      "total_seconds": 1.4824450998567045,
+      "element_count": 88,
+      "found": {
+        "element_id": "ocr_23",
+        "text": "pyautoguipackage from PyPl by running pip install pyautogui(on",
+        "bbox": [
+          1017,
+          477,
+          817,
+          42
+        ],
+        "center": [
+          1425,
+          498
+        ],
+        "confidence": 0.9496970176696777,
+        "element_type": "text",
+        "source": "ocr"
+      },
+      "clicked": true,
+      "click_result": {
+        "action": "click",
+        "ok": true,
+        "detail": "left click at (1425, 498)"
+      }
+    }
+  ]
+}

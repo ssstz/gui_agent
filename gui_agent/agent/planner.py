@@ -1,8 +1,9 @@
-﻿"""Simple rule-based task planner for desktop GUI agent tasks."""
+﻿"""LangChain task planner for desktop GUI agent tasks."""
 
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+import json
 import re
 from typing import Any
 
@@ -33,137 +34,96 @@ class TaskPlan:
         }
 
 
-class SimpleTaskPlanner:
-    """Create a conservative tool plan from a natural-language task.
+class LangChainTaskPlanner:
+    """Create TaskPlan objects by calling a LangChain-compatible chat model."""
 
-    This rule-based planner is intentionally small. It gives the project a
-    deterministic planning baseline before adding LLM-based planning.
-    """
+    def __init__(self, llm: Any) -> None:
+        self.llm = llm
 
     def plan(self, task: str) -> TaskPlan:
         task = task.strip()
         if not task:
             raise ValueError("task must not be empty")
 
-        steps = [
-            PlanStep(
-                tool="ocr_screen",
-                description="Observe the current screen and extract visible UI text.",
-            )
-        ]
+        try:
+            from langchain_core.prompts import ChatPromptTemplate
+        except ImportError as exc:
+            raise RuntimeError("langchain-core is required to use LangChainTaskPlanner") from exc
 
-        search_query = _extract_search_query(task)
-        text_to_type = _extract_text_to_type(task)
-        click_target = _extract_click_target(task)
-        scroll_amount = _extract_scroll_amount(task)
-
-        if click_target:
-            steps.append(
-                PlanStep(
-                    tool="click_text",
-                    description=f"Click the UI element matching {click_target!r}.",
-                    args={"keyword": click_target, "fuzzy_threshold": 0.8},
-                )
-            )
-
-        if search_query:
-            steps.append(
-                PlanStep(
-                    tool="type_text",
-                    description=f"Type search query {search_query!r} and press Enter.",
-                    args={"text": search_query, "press_enter": True},
-                )
-            )
-        elif text_to_type:
-            steps.append(
-                PlanStep(
-                    tool="type_text",
-                    description=f"Type text {text_to_type!r}.",
-                    args={"text": text_to_type, "press_enter": False},
-                )
-            )
-
-        if scroll_amount is not None:
-            steps.append(
-                PlanStep(
-                    tool="scroll",
-                    description="Scroll the active page or window.",
-                    args={"amount": scroll_amount},
-                )
-            )
-
-        steps.append(
-            PlanStep(
-                tool="ocr_screen",
-                description="Observe the screen again to verify the result.",
-            )
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", _PLANNER_SYSTEM_PROMPT),
+                ("human", "Task: {task}"),
+            ]
         )
-        return TaskPlan(task=task, steps=steps)
+        response = (prompt | self.llm).invoke({"task": task})
+        content = getattr(response, "content", response)
+        data = _parse_plan_json(str(content))
+        return _task_plan_from_data(task, data)
 
 
-def _extract_search_query(task: str) -> str | None:
-    patterns = [
-        r"search(?: for)?\s+(.+)$",
-        r"google\s+(.+)$",
-        r"搜索\s*(.+)$",
-        r"查询\s*(.+)$",
-    ]
-    return _first_match(task, patterns)
+_ALLOWED_TOOLS = {
+    "capture_screen",
+    "ocr_screen",
+    "find_text",
+    "click_text",
+    "click_point",
+    "type_text",
+    "scroll",
+    "drag",
+}
+
+_PLANNER_SYSTEM_PROMPT = """
+You are a desktop GUI agent planner. Convert the user task into a JSON plan.
+Only use these tools: capture_screen, ocr_screen, find_text, click_text,
+click_point, type_text, scroll, drag.
+Return JSON only, with this format:
+{
+  "steps": [
+    {"tool": "ocr_screen", "description": "Observe visible screen text.", "args": {}}
+  ]
+}
+Rules:
+- Prefer ocr_screen before text-based actions.
+- Prefer click_text when the target can be described by visible text.
+- Use type_text for keyboard input.
+- Keep steps short and executable.
+""".strip()
 
 
-def _extract_text_to_type(task: str) -> str | None:
-    quoted = _first_match(task, [r"['\"](.+?)['\"]", r"“(.+?)”", r"‘(.+?)’"])
-    if quoted:
-        return quoted
-    patterns = [
-        r"type\s+(.+)$",
-        r"write\s+(.+)$",
-        r"input\s+(.+)$",
-        r"输入\s*(.+)$",
-        r"写入\s*(.+)$",
-        r"写下\s*(.+)$",
-    ]
-    return _first_match(task, patterns)
+def _parse_plan_json(content: str) -> dict[str, Any]:
+    content = content.strip()
+    fenced_match = re.search(r"```(?:json)?\s*(.*?)\s*```", content, flags=re.DOTALL | re.IGNORECASE)
+    if fenced_match:
+        content = fenced_match.group(1).strip()
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"planner output is not valid JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise ValueError("planner output must be a JSON object")
+    return data
 
 
-def _extract_click_target(task: str) -> str | None:
-    patterns = [
-        r"click\s+(.+?)(?:\s+then|\s+and|$)",
-        r"open\s+(.+?)(?:\s+then|\s+and|$)",
-        r"点击\s*(.+?)(?:，|,|然后|$)",
-        r"打开\s*(.+?)(?:，|,|然后|$)",
-    ]
-    target = _first_match(task, patterns)
-    if target:
-        return _clean_target(target)
-    if _contains_any(task, ["search", "搜索", "查询"]):
-        return "search"
-    return None
+def _task_plan_from_data(task: str, data: dict[str, Any]) -> TaskPlan:
+    raw_steps = data.get("steps")
+    if not isinstance(raw_steps, list) or not raw_steps:
+        raise ValueError("planner output must contain a non-empty steps list")
 
+    steps: list[PlanStep] = []
+    for index, raw_step in enumerate(raw_steps):
+        if not isinstance(raw_step, dict):
+            raise ValueError(f"step {index} must be a JSON object")
 
-def _extract_scroll_amount(task: str) -> int | None:
-    lowered = task.lower()
-    if "scroll down" in lowered or "向下滚" in task or "下滑" in task:
-        return -500
-    if "scroll up" in lowered or "向上滚" in task or "上滑" in task:
-        return 500
-    return None
+        tool = raw_step.get("tool")
+        if tool not in _ALLOWED_TOOLS:
+            raise ValueError(f"step {index} uses unsupported tool: {tool!r}")
 
+        description = raw_step.get("description") or f"Run {tool}."
+        args = raw_step.get("args") or {}
+        if not isinstance(args, dict):
+            raise ValueError(f"step {index} args must be a JSON object")
 
-def _first_match(text: str, patterns: list[str]) -> str | None:
-    for pattern in patterns:
-        match = re.search(pattern, text, flags=re.IGNORECASE)
-        if match:
-            value = match.group(1).strip()
-            return value.rstrip(".。") if value else None
-    return None
+        steps.append(PlanStep(tool=tool, description=str(description), args=args))
 
-
-def _contains_any(text: str, keywords: list[str]) -> bool:
-    lowered = text.lower()
-    return any(keyword.lower() in lowered for keyword in keywords)
-
-
-def _clean_target(target: str) -> str:
-    target = target.strip().strip("'\"“”‘’")
-    return target.rstrip(".。")
+    return TaskPlan(task=task, steps=steps)

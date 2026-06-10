@@ -1,6 +1,7 @@
 ﻿"""Agent framework utilities."""
 
-from .planner import PlanStep, SimpleTaskPlanner, TaskPlan
+from .executor import PlanExecutionResult, StepExecutionResult, ToolExecutor
+from .planner import LangChainTaskPlanner, PlanStep, TaskPlan
 from .tools import (
     AgentToolState,
     capture_screen_tool,
@@ -16,9 +17,12 @@ from .tools import (
 
 __all__ = [
     "AgentToolState",
+    "LangChainTaskPlanner",
+    "PlanExecutionResult",
     "PlanStep",
-    "SimpleTaskPlanner",
+    "StepExecutionResult",
     "TaskPlan",
+    "ToolExecutor",
     "capture_screen_tool",
     "click_point_tool",
     "click_text_tool",

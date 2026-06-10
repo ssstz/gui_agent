@@ -1,7 +1,7 @@
 ﻿import pytest
 
 from gui_agent.agent import LangChainTaskPlanner, QwenVLChatClient, QwenVLResponse
-from gui_agent.agent.qwen_vl_client import DEFAULT_QWEN_VL_MODEL, _prompt_value_to_text
+from gui_agent.agent.qwen_vl_client import DEFAULT_QWEN_OFFLOAD_DIR, DEFAULT_QWEN_VL_MODEL, _prompt_value_to_text
 
 
 class FakeQwenClient(QwenVLChatClient):
@@ -20,6 +20,7 @@ def test_qwen_client_defaults_to_official_model_name():
 
     assert client.model_name == DEFAULT_QWEN_VL_MODEL
     assert client.device_map == "auto"
+    assert client.offload_folder == DEFAULT_QWEN_OFFLOAD_DIR
 
 
 def test_qwen_client_builds_image_query_with_tokenizer():

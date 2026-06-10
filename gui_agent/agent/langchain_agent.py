@@ -67,12 +67,18 @@ def create_qwen_desktop_agent(
     model_name: str = "models/qwen_vl_chat",
     artifacts_dir: str | Path = "artifacts/agent_runs",
     device_map: str = "auto",
+    offload_folder: str | Path | None = "models/qwen_offload",
     model_kwargs: dict[str, Any] | None = None,
 ) -> DesktopGUIAgent:
     """Create a DesktopGUIAgent backed by local Qwen-VL-Chat planning."""
 
     state = AgentToolState(artifacts_dir=Path(artifacts_dir))
-    qwen = QwenVLChatClient(model_name=model_name, device_map=device_map, model_kwargs=model_kwargs)
+    qwen = QwenVLChatClient(
+        model_name=model_name,
+        device_map=device_map,
+        offload_folder=offload_folder,
+        model_kwargs=model_kwargs,
+    )
     planner = LangChainTaskPlanner(qwen)
     return DesktopGUIAgent(planner=planner, state=state)
 
@@ -86,4 +92,3 @@ def save_agent_run_result(result: AgentRunResult, path: str | Path) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
     return output_path
-

@@ -8,6 +8,7 @@ from typing import Any
 
 
 DEFAULT_QWEN_VL_MODEL = "Qwen/Qwen-VL-Chat"
+DEFAULT_QWEN_OFFLOAD_DIR = Path("models/qwen_offload")
 
 
 @dataclass(frozen=True)
@@ -32,11 +33,13 @@ class QwenVLChatClient:
         *,
         device_map: str = "auto",
         trust_remote_code: bool = True,
+        offload_folder: str | Path | None = DEFAULT_QWEN_OFFLOAD_DIR,
         model_kwargs: dict[str, Any] | None = None,
     ) -> None:
         self.model_name = model_name
         self.device_map = device_map
         self.trust_remote_code = trust_remote_code
+        self.offload_folder = Path(offload_folder) if offload_folder is not None else None
         self.model_kwargs = model_kwargs or {}
         self._tokenizer: Any = None
         self._model: Any = None
@@ -91,11 +94,19 @@ class QwenVLChatClient:
             self.model_name,
             trust_remote_code=self.trust_remote_code,
         )
+
+        load_kwargs = {
+            "device_map": self.device_map,
+            "trust_remote_code": self.trust_remote_code,
+            **self.model_kwargs,
+        }
+        if self.offload_folder is not None and "offload_folder" not in load_kwargs:
+            self.offload_folder.mkdir(parents=True, exist_ok=True)
+            load_kwargs["offload_folder"] = str(self.offload_folder.resolve())
+
         self._model = AutoModelForCausalLM.from_pretrained(
             self.model_name,
-            device_map=self.device_map,
-            trust_remote_code=self.trust_remote_code,
-            **self.model_kwargs,
+            **load_kwargs,
         ).eval()
         return self._tokenizer, self._model
 

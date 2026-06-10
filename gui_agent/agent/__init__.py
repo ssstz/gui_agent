@@ -12,9 +12,14 @@ from .tools import (
     create_langchain_tools,
     drag_tool,
     find_text_tool,
+    hotkey_tool,
     ocr_screen_tool,
+    open_app_tool,
+    open_url_tool,
+    press_key_tool,
     scroll_tool,
     type_text_tool,
+    wait_tool,
 )
 
 __all__ = [
@@ -37,8 +42,13 @@ __all__ = [
     "create_qwen_desktop_agent",
     "drag_tool",
     "find_text_tool",
+    "hotkey_tool",
     "ocr_screen_tool",
+    "open_app_tool",
+    "open_url_tool",
+    "press_key_tool",
     "save_agent_run_result",
     "scroll_tool",
     "type_text_tool",
+    "wait_tool",
 ]

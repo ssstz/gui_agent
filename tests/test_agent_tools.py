@@ -75,3 +75,34 @@ def test_control_tools_wrap_action_results(monkeypatch):
     assert result["ok"] is True
     assert result["action"]["detail"] == "ok"
 
+
+
+def test_open_app_tool_wraps_action_result(monkeypatch):
+    monkeypatch.setattr(tools, "open_app", lambda command, args=None, wait_seconds=0.0: ActionResult("open_app", True, command))
+
+    result = tools.open_app_tool("notepad", args=["demo.txt"], wait_seconds=1.0)
+
+    assert result["ok"] is True
+    assert result["action"]["detail"] == "notepad"
+
+
+def test_keyboard_tools_wrap_action_results(monkeypatch):
+    monkeypatch.setattr(tools, "press_key", lambda key, presses=1, interval=0.0: ActionResult("press_key", True, key))
+    monkeypatch.setattr(tools, "hotkey", lambda keys, interval=0.0: ActionResult("hotkey", True, "+".join(keys)))
+
+    press_result = tools.press_key_tool("enter")
+    hotkey_result = tools.hotkey_tool(["ctrl", "a"])
+
+    assert press_result["ok"] is True
+    assert press_result["action"]["detail"] == "enter"
+    assert hotkey_result["ok"] is True
+    assert hotkey_result["action"]["detail"] == "ctrl+a"
+
+
+def test_wait_tool_wraps_action_result(monkeypatch):
+    monkeypatch.setattr(tools, "wait", lambda seconds: ActionResult("wait", True, str(seconds)))
+
+    result = tools.wait_tool(0.5)
+
+    assert result["ok"] is True
+    assert result["action"]["detail"] == "0.5"

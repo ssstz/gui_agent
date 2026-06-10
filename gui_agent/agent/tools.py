@@ -11,7 +11,17 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from gui_agent.desktop_controller import click, drag, scroll, type_text
+from gui_agent.desktop_controller import (
+    click,
+    drag,
+    hotkey,
+    open_app,
+    open_url,
+    press_key,
+    scroll,
+    type_text,
+    wait,
+)
 from gui_agent.screen_perception import (
     UIElement,
     capture_screen,
@@ -146,6 +156,20 @@ def click_text_tool(
     }
 
 
+def open_app_tool(command: str, args: list[str] | None = None, *, wait_seconds: float = 0.0) -> dict[str, Any]:
+    """Open a desktop application."""
+
+    result = open_app(command, args=args, wait_seconds=wait_seconds)
+    return {"ok": result.ok, "action": result.__dict__}
+
+
+def open_url_tool(url: str, *, wait_seconds: float = 0.0) -> dict[str, Any]:
+    """Open a URL in the default browser."""
+
+    result = open_url(url, wait_seconds=wait_seconds)
+    return {"ok": result.ok, "action": result.__dict__}
+
+
 def click_point_tool(
     x: int,
     y: int,
@@ -162,6 +186,20 @@ def type_text_tool(text: str, *, press_enter: bool = False) -> dict[str, Any]:
     """Type text into the currently focused UI element."""
 
     result = type_text(text, press_enter=press_enter)
+    return {"ok": result.ok, "action": result.__dict__}
+
+
+def press_key_tool(key: str, *, presses: int = 1, interval: float = 0.0) -> dict[str, Any]:
+    """Press one keyboard key."""
+
+    result = press_key(key, presses=presses, interval=interval)
+    return {"ok": result.ok, "action": result.__dict__}
+
+
+def hotkey_tool(keys: list[str] | str, *, interval: float = 0.0) -> dict[str, Any]:
+    """Press a keyboard shortcut."""
+
+    result = hotkey(keys, interval=interval)
     return {"ok": result.ok, "action": result.__dict__}
 
 
@@ -183,6 +221,13 @@ def drag_tool(
     """Drag from one coordinate point to another."""
 
     result = drag((start_x, start_y), (end_x, end_y), monitor_index=monitor_index)
+    return {"ok": result.ok, "action": result.__dict__}
+
+
+def wait_tool(seconds: float) -> dict[str, Any]:
+    """Wait for the desktop state to change."""
+
+    result = wait(seconds)
     return {"ok": result.ok, "action": result.__dict__}
 
 
@@ -238,6 +283,8 @@ def create_langchain_tools(state: AgentToolState) -> list[Any]:
         )
 
     return [
+        StructuredTool.from_function(open_app_tool, name="open_app", description="Open a desktop application."),
+        StructuredTool.from_function(open_url_tool, name="open_url", description="Open a URL in the default browser."),
         StructuredTool.from_function(
             capture_screen_langchain,
             name="capture_screen",
@@ -260,11 +307,13 @@ def create_langchain_tools(state: AgentToolState) -> list[Any]:
         ),
         StructuredTool.from_function(click_point_tool, name="click_point", description="Click a screen coordinate."),
         StructuredTool.from_function(type_text_tool, name="type_text", description="Type text into the focused UI element."),
+        StructuredTool.from_function(press_key_tool, name="press_key", description="Press one keyboard key."),
+        StructuredTool.from_function(hotkey_tool, name="hotkey", description="Press a keyboard shortcut."),
         StructuredTool.from_function(scroll_tool, name="scroll", description="Scroll the active window."),
         StructuredTool.from_function(drag_tool, name="drag", description="Drag from one point to another."),
+        StructuredTool.from_function(wait_tool, name="wait", description="Wait for desktop state changes."),
     ]
+
 
 def _timestamp() -> str:
     return datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-
-

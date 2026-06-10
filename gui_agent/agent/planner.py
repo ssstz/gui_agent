@@ -63,30 +63,45 @@ class LangChainTaskPlanner:
 
 
 _ALLOWED_TOOLS = {
+    "open_app",
+    "open_url",
     "capture_screen",
     "ocr_screen",
     "find_text",
     "click_text",
     "click_point",
     "type_text",
+    "press_key",
+    "hotkey",
     "scroll",
     "drag",
+    "wait",
 }
 
 _PLANNER_SYSTEM_PROMPT = """
 You are a desktop GUI agent planner. Convert the user task into a JSON plan.
-Only use these tools: capture_screen, ocr_screen, find_text, click_text,
-click_point, type_text, scroll, drag.
+Only use these tools: open_app, open_url, capture_screen, ocr_screen, find_text,
+click_text, click_point, type_text, press_key, hotkey, scroll, drag, wait.
 Return JSON only, with this format:
 {{
   "steps": [
     {{"tool": "ocr_screen", "description": "Observe visible screen text.", "args": {{}}}}
   ]
 }}
+Tool argument examples:
+- open_app: {{"command": "notepad", "wait_seconds": 1.0}}
+- open_url: {{"url": "https://www.google.com", "wait_seconds": 2.0}}
+- type_text: {{"text": "Hello", "press_enter": true}}
+- press_key: {{"key": "enter"}}
+- hotkey: {{"keys": ["ctrl", "a"]}}
+- scroll: {{"amount": -500}}
+- wait: {{"seconds": 1.0}}
 Rules:
+- Use open_app or open_url when the task asks to open an application or web page.
+- Use wait after launching apps, opening URLs, or triggering navigation.
 - Prefer ocr_screen before text-based actions.
 - Prefer click_text when the target can be described by visible text.
-- Use type_text for keyboard input.
+- Use type_text for text input and press_key or hotkey for keyboard commands.
 - Keep steps short and executable.
 """.strip()
 

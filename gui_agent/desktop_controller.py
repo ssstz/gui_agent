@@ -1,10 +1,13 @@
-"""Mouse and keyboard control helpers for a basic GUI agent."""
+﻿"""Mouse, keyboard, and application control helpers for a basic GUI agent."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 import logging
-from typing import Literal
+import subprocess
+import time
+from typing import Literal, Sequence
+import webbrowser
 
 import pyautogui
 
@@ -22,6 +25,42 @@ class ActionResult:
     action: str
     ok: bool
     detail: str = ""
+
+
+def open_app(command: str, args: Sequence[str] | None = None, *, wait_seconds: float = 0.0) -> ActionResult:
+    """Open a desktop application or executable command."""
+
+    try:
+        command = command.strip()
+        if not command:
+            raise ValueError("command must not be empty")
+
+        process_args: str | list[str]
+        process_args = [command, *list(args or [])] if args else command
+        process = subprocess.Popen(process_args)
+        _sleep(wait_seconds)
+        return ActionResult("open_app", True, f"opened {command} pid={process.pid}")
+    except Exception as exc:
+        logger.exception("Open app failed. command=%r args=%r", command, args)
+        return ActionResult("open_app", False, f"open app failed: {exc}")
+
+
+def open_url(url: str, *, wait_seconds: float = 0.0) -> ActionResult:
+    """Open a URL with the system default browser."""
+
+    try:
+        url = url.strip()
+        if not url:
+            raise ValueError("url must not be empty")
+
+        opened = webbrowser.open(url)
+        _sleep(wait_seconds)
+        if not opened:
+            return ActionResult("open_url", False, f"browser did not accept url: {url}")
+        return ActionResult("open_url", True, f"opened {url}")
+    except Exception as exc:
+        logger.exception("Open URL failed. url=%r", url)
+        return ActionResult("open_url", False, f"open url failed: {exc}")
 
 
 def click(
@@ -55,6 +94,32 @@ def type_text(text: str, *, interval: float = 0.01, press_enter: bool = False) -
     except Exception as exc:
         logger.exception("Typing failed.")
         return ActionResult("type", False, f"type failed: {exc}")
+
+
+def press_key(key: str, *, presses: int = 1, interval: float = 0.0) -> ActionResult:
+    """Press one keyboard key one or more times."""
+
+    try:
+        key = key.strip()
+        if not key:
+            raise ValueError("key must not be empty")
+        pyautogui.press(key, presses=presses, interval=interval)
+        return ActionResult("press_key", True, f"pressed {key} x{presses}")
+    except Exception as exc:
+        logger.exception("Press key failed. key=%r presses=%s", key, presses)
+        return ActionResult("press_key", False, f"press key failed: {exc}")
+
+
+def hotkey(keys: Sequence[str] | str, *, interval: float = 0.0) -> ActionResult:
+    """Press a keyboard shortcut such as ctrl+a or alt+f4."""
+
+    try:
+        normalized_keys = _normalize_keys(keys)
+        pyautogui.hotkey(*normalized_keys, interval=interval)
+        return ActionResult("hotkey", True, f"pressed {'+'.join(normalized_keys)}")
+    except Exception as exc:
+        logger.exception("Hotkey failed. keys=%r", keys)
+        return ActionResult("hotkey", False, f"hotkey failed: {exc}")
 
 
 def scroll(
@@ -97,8 +162,36 @@ def drag(
         return ActionResult("drag", False, f"drag failed: {exc}")
 
 
+def wait(seconds: float) -> ActionResult:
+    """Wait for the desktop state to change."""
+
+    try:
+        _sleep(seconds)
+        return ActionResult("wait", True, f"waited {max(0.0, seconds):.2f}s")
+    except Exception as exc:
+        logger.exception("Wait failed. seconds=%s", seconds)
+        return ActionResult("wait", False, f"wait failed: {exc}")
+
+
 def _target_center(target: UIElement | tuple[int, int], monitor_index: int | None = None) -> tuple[int, int]:
     if isinstance(target, UIElement):
         return to_global_point(target.center, monitor_index=monitor_index)
     x, y = target
     return to_global_point((int(x), int(y)), monitor_index=monitor_index)
+
+
+def _normalize_keys(keys: Sequence[str] | str) -> list[str]:
+    if isinstance(keys, str):
+        normalized = [key.strip() for key in keys.split("+")]
+    else:
+        normalized = [str(key).strip() for key in keys]
+    normalized = [key for key in normalized if key]
+    if not normalized:
+        raise ValueError("keys must not be empty")
+    return normalized
+
+
+def _sleep(seconds: float) -> None:
+    seconds = max(0.0, float(seconds))
+    if seconds:
+        time.sleep(seconds)

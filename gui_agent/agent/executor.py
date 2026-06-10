@@ -13,9 +13,14 @@ from .tools import (
     click_text_tool,
     drag_tool,
     find_text_tool,
+    hotkey_tool,
     ocr_screen_tool,
+    open_app_tool,
+    open_url_tool,
+    press_key_tool,
     scroll_tool,
     type_text_tool,
+    wait_tool,
 )
 
 ToolFn = Callable[..., dict[str, Any]]
@@ -82,12 +87,17 @@ class ToolExecutor:
 
     def _default_registry(self) -> dict[str, ToolFn]:
         return {
+            "open_app": open_app_tool,
+            "open_url": open_url_tool,
             "capture_screen": lambda **kwargs: capture_screen_tool(self.state, **kwargs),
             "ocr_screen": lambda **kwargs: ocr_screen_tool(self.state, **kwargs),
             "find_text": lambda **kwargs: find_text_tool(self.state, **kwargs),
             "click_text": lambda **kwargs: click_text_tool(self.state, **kwargs),
             "click_point": click_point_tool,
             "type_text": type_text_tool,
+            "press_key": press_key_tool,
+            "hotkey": hotkey_tool,
             "scroll": scroll_tool,
             "drag": drag_tool,
+            "wait": wait_tool,
         }

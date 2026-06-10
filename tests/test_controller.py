@@ -80,3 +80,63 @@ def test_drag_uses_start_and_end_points(monkeypatch):
     assert calls[0][1][:2] == (1, 2)
     assert calls[1][1][:2] == (30, 40)
     assert calls[1][2]["duration"] == 0.2
+
+
+def test_open_app_uses_subprocess(monkeypatch):
+    calls = []
+
+    class FakeProcess:
+        pid = 123
+
+    monkeypatch.setattr(dc.subprocess, "Popen", lambda args: calls.append(args) or FakeProcess())
+    monkeypatch.setattr(dc.time, "sleep", lambda seconds: calls.append(("sleep", seconds)))
+
+    result = dc.open_app("notepad", args=["demo.txt"], wait_seconds=0.5)
+
+    assert result.ok
+    assert calls[0] == ["notepad", "demo.txt"]
+    assert calls[1] == ("sleep", 0.5)
+    assert "pid=123" in result.detail
+
+
+def test_open_url_uses_default_browser(monkeypatch):
+    calls = []
+    monkeypatch.setattr(dc.webbrowser, "open", lambda url: calls.append(url) or True)
+    monkeypatch.setattr(dc.time, "sleep", lambda seconds: calls.append(("sleep", seconds)))
+
+    result = dc.open_url("https://www.google.com", wait_seconds=1.0)
+
+    assert result.ok
+    assert calls == ["https://www.google.com", ("sleep", 1.0)]
+
+
+def test_press_key_uses_pyautogui_press(monkeypatch):
+    calls = []
+    monkeypatch.setattr(dc.pyautogui, "press", lambda *args, **kwargs: calls.append((args, kwargs)))
+
+    result = dc.press_key("enter", presses=2, interval=0.1)
+
+    assert result.ok
+    assert calls[0][0] == ("enter",)
+    assert calls[0][1] == {"presses": 2, "interval": 0.1}
+
+
+def test_hotkey_accepts_plus_separated_string(monkeypatch):
+    calls = []
+    monkeypatch.setattr(dc.pyautogui, "hotkey", lambda *args, **kwargs: calls.append((args, kwargs)))
+
+    result = dc.hotkey("ctrl+a", interval=0.05)
+
+    assert result.ok
+    assert calls[0][0] == ("ctrl", "a")
+    assert calls[0][1] == {"interval": 0.05}
+
+
+def test_wait_sleeps(monkeypatch):
+    calls = []
+    monkeypatch.setattr(dc.time, "sleep", lambda seconds: calls.append(seconds))
+
+    result = dc.wait(0.25)
+
+    assert result.ok
+    assert calls == [0.25]

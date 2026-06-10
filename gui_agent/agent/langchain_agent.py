@@ -64,7 +64,7 @@ class DesktopGUIAgent:
 
 def create_qwen_desktop_agent(
     *,
-    model_name: str = "Qwen/Qwen-VL-Chat",
+    model_name: str = "models/qwen_vl_chat",
     artifacts_dir: str | Path = "artifacts/agent_runs",
     device_map: str = "auto",
     model_kwargs: dict[str, Any] | None = None,
@@ -86,3 +86,4 @@ def save_agent_run_result(result: AgentRunResult, path: str | Path) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
     return output_path
+

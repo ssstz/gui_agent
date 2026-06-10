@@ -183,3 +183,6 @@ cython_debug/
 datasets/raw/
 datasets/raw_archives/
 datasets/processed/
+
+# Local model weights and caches
+models/

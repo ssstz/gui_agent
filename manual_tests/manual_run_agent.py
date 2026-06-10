@@ -1,7 +1,7 @@
 ﻿"""Manual end-to-end desktop GUI agent run.
 
 This script uses Qwen-VL-Chat through create_qwen_desktop_agent(). The first real
-run may download model weights from Hugging Face and use GPU memory.
+run requires the local model directory or may download model weights if a Hugging Face model name is used.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ from gui_agent.agent import create_qwen_desktop_agent, save_agent_run_result
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run one end-to-end desktop GUI agent task.")
     parser.add_argument("task", help="Natural-language desktop task to execute.")
-    parser.add_argument("--model", default="Qwen/Qwen-VL-Chat", help="Hugging Face model name or local model path.")
+    parser.add_argument("--model", default="models/qwen_vl_chat", help="Local model path or Hugging Face model name.")
     parser.add_argument("--artifacts-dir", default="artifacts/agent_runs", help="Directory for screenshots and result JSON.")
     parser.add_argument("--continue-on-error", action="store_true", help="Continue executing later steps after a failed step.")
     args = parser.parse_args()
@@ -37,3 +37,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

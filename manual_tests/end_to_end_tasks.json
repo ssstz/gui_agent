@@ -1,0 +1,175 @@
+[
+  {
+    "id": 1,
+    "name": "open_google_by_address_bar",
+    "task": "打开浏览器，在地址栏输入 https://www.google.com 并按回车访问。",
+    "initial_state": "桌面处于可操作状态，默认浏览器可打开。",
+    "planned_steps": [
+      {"tool": "open_app", "args": {"command": "chrome", "wait_seconds": 1.5}},
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "l"]}},
+      {"tool": "type_text", "args": {"text": "https://www.google.com"}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "wait", "args": {"seconds": 2.0}},
+      {"tool": "ocr_screen", "args": {}}
+    ],
+    "expected_result": "浏览器打开 Google 页面，OCR 结果中应出现 Google 或搜索栏相关文本。",
+    "verification_keywords": ["Google"],
+    "manual_notes": "如果本机没有 chrome 命令，可将 command 改为 msedge。"
+  },
+  {
+    "id": 2,
+    "name": "search_qwen_vl_chat_and_click_qwen_chat",
+    "task": "在 Google 搜索栏中搜索 Qwen VL Chat，向下滚动找到 Qwen Chat 并点击。",
+    "initial_state": "浏览器已打开 Google 页面。",
+    "planned_steps": [
+      {"tool": "ocr_screen", "args": {}},
+      {"tool": "click_text", "args": {"keyword": "Search", "fuzzy_threshold": 0.7}},
+      {"tool": "type_text", "args": {"text": "Qwen VL Chat", "press_enter": true}},
+      {"tool": "wait", "args": {"seconds": 2.0}},
+      {"tool": "scroll", "args": {"amount": -500}},
+      {"tool": "ocr_screen", "args": {}},
+      {"tool": "click_text", "args": {"keyword": "Qwen Chat", "fuzzy_threshold": 0.7}}
+    ],
+    "expected_result": "成功进入与 Qwen Chat 或 Qwen-VL-Chat 相关的页面。",
+    "verification_keywords": ["Qwen", "Chat"],
+    "manual_notes": "搜索结果会随时间变化，若 OCR 未识别到 Qwen Chat，可将点击关键词改为页面中实际出现的结果标题。"
+  },
+  {
+    "id": 3,
+    "name": "search_qianwen_and_click_result",
+    "task": "在 Google 搜索栏中搜索千问，找到“千问智能体”并点击。",
+    "initial_state": "浏览器已打开 Google 页面。",
+    "planned_steps": [
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "l"]}},
+      {"tool": "type_text", "args": {"text": "https://www.google.com"}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "wait", "args": {"seconds": 2.0}},
+      {"tool": "ocr_screen", "args": {}},
+      {"tool": "click_text", "args": {"keyword": "Search", "fuzzy_threshold": 0.7}},
+      {"tool": "type_text", "args": {"text": "千问", "press_enter": true}},
+      {"tool": "wait", "args": {"seconds": 2.0}},
+      {"tool": "ocr_screen", "args": {}},
+      {"tool": "click_text", "args": {"keyword": "千问智能体", "fuzzy_threshold": 0.6}}
+    ],
+    "expected_result": "成功点击与“千问智能体”相关的搜索结果。",
+    "verification_keywords": ["千问", "智能体"],
+    "manual_notes": "中文搜索结果可能受地区和登录状态影响，必要时根据 OCR 标注图调整目标关键词。"
+  },
+  {
+    "id": 4,
+    "name": "notepad_type_mixed_text",
+    "task": "打开记事本，输入 Hello 你好 123!。",
+    "initial_state": "桌面处于可操作状态。",
+    "planned_steps": [
+      {"tool": "open_app", "args": {"command": "notepad", "wait_seconds": 1.0}},
+      {"tool": "type_text", "args": {"text": "Hello 你好 123!"}},
+      {"tool": "wait", "args": {"seconds": 0.5}},
+      {"tool": "ocr_screen", "args": {}}
+    ],
+    "expected_result": "记事本中出现 Hello 你好 123!。",
+    "verification_keywords": ["Hello", "你好", "123"],
+    "manual_notes": "如果中文无法通过 pyautogui.write 正常输入，后续可改用剪贴板输入方案。"
+  },
+  {
+    "id": 5,
+    "name": "notepad_select_copy_paste_twice",
+    "task": "在记事本中全选内容并复制粘贴 2 次。",
+    "initial_state": "记事本中已有文本内容，例如 Hello 你好 123!。",
+    "planned_steps": [
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "a"]}},
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "c"]}},
+      {"tool": "press_key", "args": {"key": "end"}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "v"]}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "v"]}},
+      {"tool": "wait", "args": {"seconds": 0.5}},
+      {"tool": "ocr_screen", "args": {}}
+    ],
+    "expected_result": "记事本中原文本被复制粘贴 2 次，页面上应出现多行重复文本。",
+    "verification_keywords": ["Hello", "123"],
+    "manual_notes": "该任务依赖第 4 个任务或手动提前在记事本中输入内容。"
+  },
+  {
+    "id": 6,
+    "name": "notepad_close_and_save",
+    "task": "在记事本中点击关闭，在弹窗中选择保存。",
+    "initial_state": "记事本中存在未保存内容。",
+    "planned_steps": [
+      {"tool": "hotkey", "args": {"keys": ["alt", "f4"]}},
+      {"tool": "wait", "args": {"seconds": 1.0}},
+      {"tool": "ocr_screen", "args": {}},
+      {"tool": "click_text", "args": {"keyword": "保存", "fuzzy_threshold": 0.7}}
+    ],
+    "expected_result": "记事本关闭流程触发保存弹窗，并点击保存按钮。",
+    "verification_keywords": ["保存"],
+    "manual_notes": "保存后可能继续弹出文件名选择窗口，该任务只验证点击保存弹窗按钮。"
+  },
+  {
+    "id": 7,
+    "name": "calculator_12_plus_34",
+    "task": "打开计算器，计算 12 + 34。",
+    "initial_state": "桌面处于可操作状态。",
+    "planned_steps": [
+      {"tool": "open_app", "args": {"command": "calc", "wait_seconds": 1.0}},
+      {"tool": "type_text", "args": {"text": "12+34"}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "wait", "args": {"seconds": 0.5}},
+      {"tool": "ocr_screen", "args": {}}
+    ],
+    "expected_result": "计算器显示计算结果 46。",
+    "verification_keywords": ["46"],
+    "manual_notes": "不同 Windows 计算器版本可能对键盘输入响应不同，必要时可改成点击数字按钮。"
+  },
+  {
+    "id": 8,
+    "name": "file_explorer_open_d_drive",
+    "task": "打开文件资源管理器，进入 D 盘。",
+    "initial_state": "Windows 文件资源管理器可用，存在 D 盘。",
+    "planned_steps": [
+      {"tool": "open_app", "args": {"command": "explorer", "wait_seconds": 1.0}},
+      {"tool": "hotkey", "args": {"keys": ["ctrl", "l"]}},
+      {"tool": "type_text", "args": {"text": "D:\\"}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "wait", "args": {"seconds": 1.0}},
+      {"tool": "ocr_screen", "args": {}}
+    ],
+    "expected_result": "文件资源管理器进入 D 盘目录。",
+    "verification_keywords": ["D", "study"],
+    "manual_notes": "如果 D 盘根目录没有 study 文件夹，可根据实际目录调整 verification_keywords。"
+  },
+  {
+    "id": 9,
+    "name": "whatsapp_send_message_to_self",
+    "task": "打开 WhatsApp，点击“自己”，输入 Hello 你好 123! 并发送。",
+    "initial_state": "本机已安装并登录 WhatsApp，聊天列表中存在“自己”。",
+    "planned_steps": [
+      {"tool": "open_app", "args": {"command": "WhatsApp", "wait_seconds": 2.0}},
+      {"tool": "ocr_screen", "args": {}},
+      {"tool": "click_text", "args": {"keyword": "自己", "fuzzy_threshold": 0.7}},
+      {"tool": "wait", "args": {"seconds": 1.0}},
+      {"tool": "type_text", "args": {"text": "Hello 你好 123!"}},
+      {"tool": "press_key", "args": {"key": "enter"}},
+      {"tool": "wait", "args": {"seconds": 1.0}},
+      {"tool": "ocr_screen", "args": {}}
+    ],
+    "expected_result": "WhatsApp 对话中出现并发送 Hello 你好 123!。",
+    "verification_keywords": ["Hello", "你好", "123"],
+    "manual_notes": "该任务依赖本地 WhatsApp 安装、登录状态和聊天名称，失败概率高，适合作为高难度任务。"
+  },
+  {
+    "id": 10,
+    "name": "paint_draw_line",
+    "task": "打开画图 Paint，使用鼠标拖拽画一条线。",
+    "initial_state": "Windows 画图应用可用。",
+    "planned_steps": [
+      {"tool": "open_app", "args": {"command": "mspaint", "wait_seconds": 1.5}},
+      {"tool": "drag", "args": {"start_x": 300, "start_y": 300, "end_x": 700, "end_y": 500}},
+      {"tool": "wait", "args": {"seconds": 0.5}},
+      {"tool": "capture_screen", "args": {}}
+    ],
+    "expected_result": "Paint 画布上出现一条鼠标拖拽绘制的线。",
+    "verification_keywords": [],
+    "manual_notes": "该任务主要通过截图人工判断结果；坐标可能需要根据屏幕分辨率和 Paint 窗口位置调整。"
+  }
+]

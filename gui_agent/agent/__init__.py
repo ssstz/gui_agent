@@ -2,6 +2,7 @@
 
 from .executor import PlanExecutionResult, StepExecutionResult, ToolExecutor
 from .planner import LangChainTaskPlanner, PlanStep, TaskPlan
+from .qwen_vl_client import DEFAULT_QWEN_VL_MODEL, QwenVLChatClient, QwenVLResponse
 from .tools import (
     AgentToolState,
     capture_screen_tool,
@@ -17,9 +18,12 @@ from .tools import (
 
 __all__ = [
     "AgentToolState",
+    "DEFAULT_QWEN_VL_MODEL",
     "LangChainTaskPlanner",
     "PlanExecutionResult",
     "PlanStep",
+    "QwenVLChatClient",
+    "QwenVLResponse",
     "StepExecutionResult",
     "TaskPlan",
     "ToolExecutor",
